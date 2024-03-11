@@ -1,0 +1,10 @@
+[package]
+name = "rust-test"
+description = "DES in rust for learning"
+readme = "README.md"
+version = "0.1.0"
+edition = "2021"
+authors = ["JamFox <rust@jamfox.dev>"]
+repository = "https://github.com/JamFox/rust-des"
+
+[dependencies]
