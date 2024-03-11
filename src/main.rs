@@ -26,12 +26,12 @@ fn main() {
             1 => {
                 let plaintext = get_input("Enter 64-bit plaintext: ");
                 let cipher_key = get_input("Enter 64-bit cipher key: ");
-                encrypt(plaintext.as_bytes(), cipher_key.as_bytes());
+                encrypt(plaintext, cipher_key);
             }
             2 => {
                 let ciphertext = get_input("Enter 64-bit ciphertext: ");
                 let cipher_key = get_input("Enter 64-bit cipher key: ");
-                decrypt(ciphertext.as_bytes(), cipher_key.as_bytes());
+                decrypt(ciphertext, cipher_key);
             }
             3 => {
                 println!("Exiting program!");
@@ -56,21 +56,21 @@ fn get_input(prompt: &str) -> String {
     input.trim().to_string()
 }
 
-fn encrypt(plaintext: &[u8], cipher_key: &[u8]) {
+fn encrypt(plaintext: String, cipher_key: String) {
     // Placeholder for encryption function
-    println!("Encrypting:");
-    println!("Plaintext String: {}", String::from_utf8_lossy(plaintext));
-    println!("Plaintext Byte String: {:?}", plaintext);
-    println!("Key String: {}", String::from_utf8_lossy(cipher_key));
-    println!("Key Byte String: {:?}", cipher_key);
+    println!("Encrypting: {} with key: {}", plaintext, cipher_key);
+    let plaintext_byte_string: &[u8] = plaintext.as_bytes();
+    println!("Plaintext Byte String: {:?}", plaintext_byte_string);
+    let cipher_key_byte_string: &[u8] = cipher_key.as_bytes();
+    println!("Key Byte String: {:?}", cipher_key_byte_string);
 }
 
-fn decrypt(ciphertext: &[u8], cipher_key: &[u8]) {
+fn decrypt(ciphertext: String, cipher_key: String) {
     // Placeholder for decryption function
-    println!("Decrypting:");
-    println!("Ciphertext String: {}", String::from_utf8_lossy(ciphertext));
-    println!("Ciphertext Byte String: {:?}", ciphertext);
-    println!("Key String: {}", String::from_utf8_lossy(cipher_key));
-    println!("Key Byte String: {:?}", cipher_key);
+    println!("Decrypting: {} with key: {}", ciphertext, cipher_key);
+    let ciphertext_byte_string: &[u8] = ciphertext.as_bytes();
+    println!("Ciphertext Byte String: {:?}", ciphertext_byte_string);
+    let cipher_key_byte_string: &[u8] = cipher_key.as_bytes();
+    println!("Key Byte String: {:?}", cipher_key_byte_string);
 }
 
