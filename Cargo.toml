@@ -1,5 +1,5 @@
 [package]
-name = "rust-test"
+name = "rust-des-jam"
 description = "DES in rust for learning"
 readme = "README.md"
 version = "0.1.0"
