@@ -51,6 +51,8 @@ fn get_input(prompt: &str) -> String {
     // store input in mutable var
     let mut input = String::new();
     io::stdin().read_line(&mut input).expect("Failed to read line");
+    // rust return last line if semicolon is not at the end
+    // you could also add return at the front and semicolon at the end
     input.trim().to_string()
 }
 
