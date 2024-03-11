@@ -69,6 +69,8 @@ fn print_permutations() {
     // Permute the data according to the IP permutation
     let mut permuted_data: [usize; 64] = [0; 64];
     for i in 0..64 {
+        // Data element i goes to the position specified in permutation table
+        // For example if IP[i] = 58, then data[i] goes to position 58 - 1 = 57 in permuted_data
         permuted_data[IP[i] - 1] = data[i];
     }
 
