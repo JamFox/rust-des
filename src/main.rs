@@ -1,6 +1,9 @@
 use std::io;
 use std::io::Write;
 
+mod permutations;
+use permutations::{IP,FP,E,PF};
+
 fn main() {
     println!("Welcome to the Rust Encryption/Decryption program!");
 
@@ -9,7 +12,8 @@ fn main() {
         println!("Choose an option:");
         println!("1. Encrypt");
         println!("2. Decrypt");
-        println!("3. Exit");
+        println!("3. Print Permutations");
+        println!("Press any other number to exit.");
         println!();
 
         let mut choice = String::new();
@@ -34,13 +38,26 @@ fn main() {
                 decrypt(ciphertext, cipher_key);
             }
             3 => {
+                print_permutations();
+            }
+            _ => {
                 println!("Exiting program!");
                 break;
             }
-            _ => {
-                println!("Invalid choice. Please enter a valid option (1, 2, or 3).");
-            }
         }
+    }
+}
+
+fn print_permutations() {
+    /* 
+     * Print the permutations for debugging purposes
+    */
+    println!("Initial Permutation: {:?}", IP);
+    println!("Final Permutation: {:?}", FP);
+    println!("Expansion: {:?}", E);
+    println!("Permutation in F: {:?}", PF);
+    for i in 0..64 {
+        println!("IP{}: {:?}", i+1, permutations::IP[i]);
     }
 }
 
@@ -73,4 +90,3 @@ fn decrypt(ciphertext: String, cipher_key: String) {
     let cipher_key_byte_string: &[u8] = cipher_key.as_bytes();
     println!("Key Byte String: {:?}", cipher_key_byte_string);
 }
-
