@@ -59,6 +59,22 @@ fn print_permutations() {
     for i in 0..64 {
         println!("IP{}: {:?}", i+1, permutations::IP[i]);
     }
+
+    // Initialize the data array with consecutive integers starting from 1
+    let mut data: [usize; 64] = [0; 64];
+    for (index, element) in data.iter_mut().enumerate() {
+        *element = index + 1;
+    }
+
+    // Permute the data according to the IP permutation
+    let mut permuted_data: [usize; 64] = [0; 64];
+    for i in 0..64 {
+        permuted_data[IP[i] - 1] = data[i];
+    }
+
+    // Print the original and permuted data
+    println!("Original Data: {:?}", data);
+    println!("Permuted Data: {:?}", permuted_data);
 }
 
 fn get_input(prompt: &str) -> String {
