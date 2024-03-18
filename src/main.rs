@@ -56,9 +56,7 @@ fn print_permutations() {
     println!("Final Permutation: {:?}", FP);
     println!("Expansion: {:?}", E);
     println!("Permutation in F: {:?}", PF);
-    for i in 0..64 {
-        println!("IP{}: {:?}", i+1, permutations::IP[i]);
-    }
+    println!();
 
     // Initialize the data array with consecutive integers starting from 1
     let mut data: [usize; 64] = [0; 64];
@@ -66,17 +64,7 @@ fn print_permutations() {
         *element = index + 1;
     }
 
-    // Permute the data according to the IP permutation
-    let mut permuted_data: [usize; 64] = [0; 64];
-    for i in 0..64 {
-        // Data element i goes to the position specified in permutation table
-        // For example if IP[i] = 58, then data[i] goes to position 58 - 1 = 57 in permuted_data
-        permuted_data[IP[i] - 1] = data[i];
-    }
-
-    // Print the original and permuted data
-    println!("Original Data: {:?}", data);
-    println!("Permuted Data: {:?}", permuted_data);
+    permute(&IP, &data);
 }
 
 fn get_input(prompt: &str) -> String {
@@ -89,6 +77,21 @@ fn get_input(prompt: &str) -> String {
     // rust return last line if semicolon is not at the end
     // you could also add return at the front and semicolon at the end
     input.trim().to_string()
+}
+
+fn permute(permutation_table: &[usize; 64], data: &[usize; 64]) -> [usize; 64] {
+    let mut permuted_data: [usize; 64] = [0; 64];
+    for i in 0..64 {
+        // Data element i goes to the position specified in permutation table
+        // For example if permutation_table[i] = 58, then data[i] goes to position 58 - 1 = 57 in permuted_data
+        permuted_data[permutation_table[i] - 1] = data[i];
+    }
+
+    // Print the original and permuted data
+    println!("Original Data: {:?}", data);
+    println!("Permuted Data: {:?}", permuted_data);
+
+    permuted_data
 }
 
 fn encrypt(plaintext: String, cipher_key: String) {
