@@ -83,7 +83,7 @@ fn get_input(prompt: &str) -> String {
         if trimmed_input.len() < 2 {
             println!("Input should be at least 2 characters long. Please try again.");
         } else {
-            return trimmed_input[..2].to_string(); // Take first 16 characters if input is longer
+            return trimmed_input[..2].to_string(); // Take first 2 characters if input is longer
         }
     }
 }
