@@ -70,15 +70,22 @@ fn print_permutations() {
 }
 
 fn get_input(prompt: &str) -> String {
-    print!("{}", prompt);
-    // let _ to discard output value and flush
-    let _ = std::io::stdout().flush();
-    // store input in mutable var
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("Failed to read line");
-    // rust return last line if semicolon is not at the end
-    // you could also add return at the front and semicolon at the end
-    input.trim().to_string()
+    loop {
+        print!("{}", prompt);
+        let _ = io::stdout().flush();
+        
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Failed to read line");
+
+        let trimmed_input = input.trim();
+        
+        // Each char is 4 bytes, we want the input to be 64 bits long, so input should be 2 characters long
+        if trimmed_input.len() < 2 {
+            println!("Input should be at least 2 characters long. Please try again.");
+        } else {
+            return trimmed_input[..2].to_string(); // Take first 16 characters if input is longer
+        }
+    }
 }
 
 fn permute(permutation_table: &[usize; 64], data: &[usize; 64]) -> [usize; 64] {
