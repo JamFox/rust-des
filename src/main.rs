@@ -3,6 +3,8 @@ use std::io::Write;
 
 mod permutations;
 use permutations::{IP,FP,E,PF};
+//mod sboxes;
+//use sboxes::{S1,S2,S3,S4,S5,S6,S7,S8};
 
 fn main() {
     println!("Welcome to the Rust Encryption/Decryption program!");
