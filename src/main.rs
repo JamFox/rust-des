@@ -64,7 +64,9 @@ fn print_permutations() {
         *element = index + 1;
     }
 
-    permute(&IP, &data);
+    let permuted_data: [usize; 64] = permute(&IP, &data);
+
+    reverse_permute(&IP, &permuted_data);
 }
 
 fn get_input(prompt: &str) -> String {
@@ -90,8 +92,25 @@ fn permute(permutation_table: &[usize; 64], data: &[usize; 64]) -> [usize; 64] {
     // Print the original and permuted data
     println!("Original Data: {:?}", data);
     println!("Permuted Data: {:?}", permuted_data);
+    println!();
 
     permuted_data
+}
+
+fn reverse_permute(permutation_table: &[usize; 64], permuted_data: &[usize; 64]) -> [usize; 64] {
+    let mut data: [usize; 64] = [0; 64];
+    for i in 0..64 {
+        // Permuted data element i goes back to the position specified in permutation table
+        // For example if permutation_table[i] = 58, then permuted_data[i] goes to position 58 - 1 = 57 in data
+        data[i] = permuted_data[permutation_table[i] - 1];
+    }
+
+    // Print the original and reverse-permuted data
+    println!("Permuted Data: {:?}", permuted_data);
+    println!("Reversed Permuted Data: {:?}", data);
+    println!();
+
+    data
 }
 
 fn encrypt(plaintext: String, cipher_key: String) {
