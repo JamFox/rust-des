@@ -43,13 +43,13 @@ pub const PC2: [u64; 48] = [
     31, 37, 47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32,
 ];
 
+// takes a permutation table and input data
+// generates an output where each bit in the output is taken from the position in the input specified by the corresponding entry in the permutation table
 pub fn permute_u64(permutation_table: &[u64], data: u64) -> u64 {
     let mut permuted_data: u64 = 0;
-    for i in 0..permutation_table.len() {
-        // Get the i-th bit from the original data
-        let data_bit = (data >> i) & 1;
-        // Set the i-th bit in the permuted data according to the permutation table
-        permuted_data |= data_bit << (permutation_table[i] - 1);
+    for &i in permutation_table.iter() {
+        permuted_data <<= 1;
+        permuted_data |= (data >> (64 - i)) & 1; // Insert a specific bit from input to output
     }
     println!("Original Data: {:064b}", data);
     println!("Permuted Data: {:064b}", permuted_data);
@@ -58,39 +58,22 @@ pub fn permute_u64(permutation_table: &[u64], data: u64) -> u64 {
 
 pub fn permute_u32(permutation_table: &[u64], data: u32) -> u32 {
     let mut permuted_data: u32 = 0;
-    for i in 0..permutation_table.len() {
-        // Get the i-th bit from the original data
-        let data_bit = (data >> i) & 1;
-        // Set the i-th bit in the permuted data according to the permutation table
-        permuted_data |= data_bit << (permutation_table[i] - 1) as u32;
+    for &i in permutation_table.iter() {
+        permuted_data <<= 1;
+        permuted_data |= (data >> (32 - i)) & 1;
     }
     println!("Original Data: {:032b}", data);
     println!("Permuted Data: {:032b}", permuted_data);
     permuted_data
 }
 
-pub fn reverse_permute_u64(permutation_table: &[u64], permuted_data: u64) -> u64 {
-    let mut data: u64 = 0;
-    for i in 0..permutation_table.len() {
-        // Get the i-th bit from the permuted data according to the permutation table
-        let data_bit = (permuted_data >> (permutation_table[i] - 1)) & 1;
-        // Set the i-th bit in the original data
-        data |= data_bit << i;
+pub fn expand(data: u32) -> u64 {
+    let mut expanded_data: u64 = 0;
+    for &i in E.iter() {
+        expanded_data <<= 1;
+        expanded_data |= ((data >> (32 - i)) & 1) as u64;
     }
-    println!("Original Permuted Data: {:064b}", permuted_data);
-    println!("Reverse Permuted Data: {:064b}", data);
-    data
-}
-
-pub fn reverse_permute_u32(permutation_table: &[u64], permuted_data: u32) -> u32 {
-    let mut data: u32 = 0;
-    for i in 0..permutation_table.len() {
-        // Get the i-th bit from the permuted data according to the permutation table
-        let data_bit = (permuted_data >> (permutation_table[i] - 1) as u32) & 1;
-        // Set the i-th bit in the original data
-        data |= data_bit << i;
-    }
-    println!("Original Permuted Data: {:032b}", permuted_data);
-    println!("Reverse Permuted Data: {:032b}", data);
-    data
+    println!("Original Data: {:032b}", data);
+    println!("Expanded Data: {:048b}", expanded_data);
+    expanded_data
 }
